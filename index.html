@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Productos - Arquitectura 3 Capas</title>
+</head>
+<body>
+  <h1>Lista de Productos</h1>
+
+  <input type="text" id="productoInput" placeholder="Nombre del producto" />
+  <button id="agregarBtn">Agregar</button>
+
+  <ul id="listaProductos"></ul>
+
+  <script type="module">
+    import { agregarProducto, obtenerProductos } from './logic.js';
+
+    document.getElementById('agregarBtn').addEventListener('click', () => {
+      const input = document.getElementById('productoInput');
+      const nombre = input.value.trim();
+      if (nombre !== '') {
+        agregarProducto(nombre);
+        input.value = '';
+        mostrarProductos();
+      }
+    });
+
+    function mostrarProductos() {
+      const lista = document.getElementById('listaProductos');
+      lista.innerHTML = '';
+      const productos = obtenerProductos();
+      productos.forEach((producto, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${index + 1}. ${producto}`;
+        lista.appendChild(li);
+      });
+    }
+
+    mostrarProductos();
+  </script>
+</body>
+</html>
