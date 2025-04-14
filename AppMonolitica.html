@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Productos - App Monolítica</title>
+</head>
+<body>
+  <h1>Lista de Productos</h1>
+
+  <input type="text" id="productoInput" placeholder="Nombre del producto" />
+  <button onclick="agregarProducto()">Agregar</button>
+
+  <ul id="listaProductos"></ul>
+
+  <script>
+    // Lista de productos en memoria
+    const productos = [];
+
+    // Agrega un producto a la lista y actualiza la vista
+    function agregarProducto() {
+      const input = document.getElementById("productoInput");
+      const nombre = input.value.trim();
+      if (nombre !== "") {
+        productos.push(nombre);
+        input.value = "";
+        mostrarProductos();
+      }
+    }
+
+    // Muestra los productos en la lista
+    function mostrarProductos() {
+      const lista = document.getElementById("listaProductos");
+      lista.innerHTML = "";
+      productos.forEach((producto, index) => {
+        const item = document.createElement("li");
+        item.textContent = `${index + 1}. ${producto}`;
+        lista.appendChild(item);
+      });
+    }
+  </script>
+
+  <!-- 
+    Comentario final:
+
+    Esta implementación es monolítica porque toda la lógica (interfaz de usuario, lógica de negocio y datos)
+    está contenida en un solo archivo HTML con JavaScript embebido. No hay separación en capas ni módulos.
+
+    Desventajas:
+    - Difícil de escalar: al crecer la aplicación, el archivo se vuelve complejo y difícil de mantener.
+    - Baja reutilización: no se puede reutilizar la lógica fácilmente en otros contextos.
+    - Acoplamiento fuerte: los componentes dependen entre sí directamente.
+    - Dificultad para hacer pruebas unitarias o mantenimiento.
+  -->
+</body>
+</html>
